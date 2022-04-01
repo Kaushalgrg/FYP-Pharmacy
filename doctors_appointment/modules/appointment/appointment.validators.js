@@ -11,10 +11,10 @@ module.exports = {
     payload: Joi.object({
       name: Joi.string().description("Patients Name"),
       age: Joi.number().description("Patient's age"),
-      doctor_id: Joi.string().description("Doctor's id"),
+      doctor_id: Joi.string().description("Pharmacy's id"),
       phone: Joi.number().optional().description("Patient's phone"),
       email: Joi.string().description("Patient's email"),
-      gender: Joi.string().description("patient's gender"),
+      gender: Joi.string().description("Patient's gender"),
       medical_problem: Joi.string()
         .optional()
         .description("Medicial problem description"),

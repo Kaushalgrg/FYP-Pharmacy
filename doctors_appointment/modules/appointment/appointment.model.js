@@ -12,7 +12,7 @@ const schema = {
   doctor_id: { type: String, description: "Doctor's id", required: true },
   approved: {
     type: Boolean,
-    description: "appointment approved",
+    description: "Prescription approved",
     default: false,
   },
   gender: {
@@ -27,7 +27,7 @@ const schema = {
   },
   completed: {
     type: Boolean,
-    description: "appointment completed",
+    description: "Prescription order completed",
     default: false,
   },
   email: {

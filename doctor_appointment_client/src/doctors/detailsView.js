@@ -1,10 +1,10 @@
-import { Card, ListGroupItem, ListGroup, Modal } from "react-bootstrap"
+import { Card, ListGroupItem, ListGroup, Modal, Button} from "react-bootstrap"
 const Detail = ({ open, doctor, handleClose }) => {
     return (
         <Modal show={open} onHide={handleClose}>
             <Card >
                 <Card.Body>
-                    <Card.Title>{doctor.name}</Card.Title>
+                    <Card.Title>Name:{doctor.name}</Card.Title>
                     <Card.Text>
                         Details: {doctor.description}
                     </Card.Text>
@@ -16,7 +16,9 @@ const Detail = ({ open, doctor, handleClose }) => {
                     <ListGroupItem>Designation : {doctor.designation} </ListGroupItem>
                 </ListGroup>
                 <Card.Body>
+                    <Button>
                     <Card.Link onClick={handleClose}>Close</Card.Link>
+                    </Button>
                 </Card.Body>
             </Card>
         </Modal>

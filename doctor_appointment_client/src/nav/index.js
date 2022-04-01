@@ -18,7 +18,7 @@ const Logout = ({ show, handleClose }) => {
       <Modal.Header closeButton>
         <Modal.Title>Logout</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Are you sure you want to logout</Modal.Body>
+      <Modal.Body>Are you sure you want to logout? </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
@@ -73,18 +73,19 @@ export default function Navs({ authenticated }) {
         <Container>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-          <Link to = "/"><a className="navbar-brand" ><span className="text-primary">Care</span>-U</a></Link>
+          <Link to = "/"><a className="navbar-brand" ><span className="text-primary">औशधि</span>-पसल</a></Link>
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/doctors">List Doctors</Nav.Link>
+              <Nav.Link href="/doctors">List Pharmacy</Nav.Link>
               <Nav.Link href="/about">About-us</Nav.Link>
+              <Nav.Link href="/signup">Register</Nav.Link>
               {authenticated ? (
                 <>
-                  <Nav.Link href="/doctors/add">Add Doctor</Nav.Link>
-                  <Nav.Link href="/appointments">List Appointments</Nav.Link>
+                  <Nav.Link href="/doctors/add">Add Pharmacy</Nav.Link>
+                  <Nav.Link href="/appointments">List Mediceine Orders</Nav.Link>
                 </>
               ) : (
-                <Nav.Link href="/login">Admin Login</Nav.Link>
+                <Nav.Link href="/login">Login</Nav.Link>
               )}
             </Nav>
           </Navbar.Collapse>

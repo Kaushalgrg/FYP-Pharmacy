@@ -24,7 +24,7 @@ function BookDoctor({ id, show, handleClose, handleShow }) {
     age: "",
     email: "",
     phone: "",
-    problem_doc:null,
+    problem_doc: null,
     medical_problem: "",
     doctor_id: id,
   });
@@ -32,21 +32,21 @@ function BookDoctor({ id, show, handleClose, handleShow }) {
     setValues({
       name: "",
       gender: "Male",
-      age:"",
+      age: "",
       email: "",
       phone: "",
-      problem_doc:null,
+      problem_doc: null,
       medical_problem: "",
       doctor_id: "",
     });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(id){
-      setValues ({ ...values, doctor_id: id });
+    if (id) {
+      setValues({ ...values, doctor_id: id });
     }
     const res = await addAppointment(values);
-    if(!res.error){
+    if (!res.error) {
       setToastHeader("Successly ordered medicine!");
       setToastMessage(res.message);
       setToastBg("success");
@@ -54,7 +54,7 @@ function BookDoctor({ id, show, handleClose, handleShow }) {
       clearValues();
       handleClose();
     }
-    else{
+    else {
       setToastHeader("Failed!");
       setToastMessage(res.message);
       setToastBg("danger");
@@ -154,14 +154,14 @@ function BookDoctor({ id, show, handleClose, handleShow }) {
             <Form.Group controlId="formFileMultiple" className="mb-3">
               <Form.Label>Upload medical prescription</Form.Label>
               <Form.Control type="file"
-              onChange={(e)=>{
-                setValues({...values, problem_doc:e.target.files[0]})
-              }}
-              multiple style={{ width: "400px" }} />
+                onChange={(e) => {
+                  setValues({ ...values, problem_doc: e.target.files[0] })
+                }}
+                multiple style={{ width: "400px" }} />
               <Form.Text className="text-muted">
                 Medical prescription will be kept confidential.
               </Form.Text>
-  </Form.Group>
+            </Form.Group>
             <FloatingLabel
               controlId="floatingTextarea"
               label="Describe your medical problem."

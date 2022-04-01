@@ -22,6 +22,7 @@ import { UserContextProvider } from "./user/context";
 import DetailEdit from "./doctors/details";
 import ChangePassword from "./user";
 import Appointments from "./appointments";
+import SignUp from "./Signup";
 
 const ProtectedRoute = ({ authenticated, component: Component, ...rest }) => {
   return (
@@ -65,6 +66,7 @@ function App() {
                   <Route path="/" exact component={Home} />
                   <Route path="/about" component={About} />
                   <Route path="/doctors" exact component={Doctors} />
+                  <Route path="/signup" exact component={SignUp} />
                   <ProtectedRoute
                     authenticated={authenticated}
                     path="/doctors/add"
@@ -85,7 +87,7 @@ function App() {
                 </Switch>
               </div>
             ) : (
-              <div>Loading..</div>
+              <div><h1>Loading.. Please wait....</h1></div>
             )}
           </DoctorContextProvider>
         </UserContextProvider>

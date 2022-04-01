@@ -1,10 +1,19 @@
 import { DoctorContext } from "./context";
 import { useContext, useState } from "react";
-import { Table, Button, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { UserContext } from "../user/context";
 import { useHistory } from "react-router";
 import Detail from "./detailsView";
 import BookDoctor from "./BookModal";
+
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+//import Button2 from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 
 const DeleteDoctor = ({ id, open, handleClose }) => {
   const { deleteDoctor, refreshData } = useContext(DoctorContext);
@@ -51,95 +60,91 @@ const Doctors = () => {
   const history = useHistory();
   return (
     <div>
-      <h1>Pharmacy List</h1>
-      {doctors ? (
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Pharmacy-ID</th>
-              <th>Name</th>
-              <th>Designation</th>
-              <th>Phone Number</th>
-              {is_admin ? (
-                <>
-                  <th>Edit</th>
-                  <th>Delete</th>
-                </>
-              ) : (
-                <>
-                  <th>Book</th>
-                  <th>Details</th>
-                </>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {doctors.map((doctor, i) => {
-              if (!doctor.is_archived) {
-                return (
-                  <tr key={i}>
-                    <td>{doctor._id}</td>
-                    <td>{doctor.name}</td>
-                    <td>{doctor.designation}</td>
-                    <td>{doctor.phone}</td>
-                    {is_admin ? (
-                      <>
-                        <td>
-                          <Button
-                            onClick={() => {
-                              history.push(
-                                `${window.location.pathname}/${doctor._id}`
-                              );
-                            }}
-                          >
-                            Edit
-                          </Button>
-                        </td>
-                        <td>
-                          <Button
-                            variant="danger"
-                            onClick={() => {
-                              setViewDoctor(doctor);
-                              handleDeleteShow();
-                            }}
-                          >
-                            Delete
-                          </Button>
-                        </td>
-                      </>
-                    ) : (
-                      <>
-                        <td>
-                          <Button
-                            onClick={() => {
-                              setViewDoctor(doctor);
-                              handleShow();
-                            }}
-                          >
-                            Book
-                          </Button>
-                        </td>
-                        <td>
-                          <Button
-                            onClick={() => {
-                              setViewDoctor(doctor);
-                              handleDetailsShow();
-                            }}
-                          >
-                            View details
-                          </Button>
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                );
-              }
-            })}
-          </tbody>
-        </Table>
-      ) : (
-        <h2>Loading data...</h2>
-      )}
+      <h1>Patnered Pharmacy</h1>
+      <Grid sx={{ flexGrow: 0}} container spacing={2}>
+      <Grid item xs={12}>
+        <Grid container justifyContent="center" spacing={5}>
+      {doctors.map((doctor, i) => {
+        if (!doctor.is_archived) {
+          return (
+            <Grid key={i} item>
+            <Box sx={{ flexGrow: 1 }}>
+                <Card sx={{ maxWidth: 400 }}>
+                  <CardMedia
+                    component="img"
+                    alt="Pharmacy"
+                    height="200"
+                    image={doctor.img}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div" fontWeight="bolder">Name:
+                      {doctor.name}<br />
+                    </Typography>
+                    {/* <Typography variant="h7" color="text.primary" fontWeight="bold">
+                      Details: {doctor.description}<br />
+                      </Typography>
+                    <Typography variant="h7" color="text.primary" fontWeight="bold">Designation:
+                      {doctor.designation}<br />
+                    </Typography> */}
+                    <Typography variant="h7" color="text.primary" fontWeight="bold">Phone no:
+                      {doctor.phone}<br />
+                    </Typography>
+                    <Typography variant="h7" color="text.primary" fontWeight="bold">Email:
+                      {doctor.email}<br />
+                    </Typography>
+                    <Typography variant="h7" color="text.primary" fontWeight="bold">Address:
+                      {doctor.address}
+                    </Typography>
+                  </CardContent>
+                  {is_admin ? (
+                    <CardActions>
+                    <Button onClick={() => {
+                      history.push(
+                        `${window.location.pathname}/${doctor._id}`
+                        );
+                      }}
+                      >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => {
+                        setViewDoctor(doctor);
+                        handleDeleteShow();
+                      }}
+                      >
+                      Delete
+                    </Button>
+                  </CardActions>
+                      ):(
+                        <CardActions>
+                    <Button onClick={() => {
+                      setViewDoctor(doctor); handleShow();
+                      }}
+                      >
+                      Order Medicine
+                    </Button>
+                    <Button 
+                      onClick={() => {
+                        setViewDoctor(doctor);
+                        handleDetailsShow();
+                      }}
+                      >
+                      View Details
+                    </Button>
+                  </CardActions>
+                      )}
+                </Card>
+            </Box>
+            </Grid>
+          );
+        }
+      })}
+      </Grid>
+      </Grid>
+      </Grid>
+
+      {/* .card*/}
 
       {viewDoctor != new Object() && show ? (
         <BookDoctor

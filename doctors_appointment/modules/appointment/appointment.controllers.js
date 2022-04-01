@@ -55,7 +55,7 @@ const Appointment = {
     const user = await AppointmentModel.findById(id);
     const user2 = await AppointmentModel.findOne({ email: data.email });
     if (!user) {
-      throw { message: "Appointment not found", code: 4000 };
+      throw { message: "Prescription not found", code: 4000 };
     } else if (data.email == user.email) {
       return await AppointmentModel.findByIdAndUpdate(id, data);
     } else if (user2) {

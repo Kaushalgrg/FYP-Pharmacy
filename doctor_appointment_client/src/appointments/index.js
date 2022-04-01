@@ -31,7 +31,7 @@ const Appointments = () => {
               <th>Gender</th>
               <th>Phone </th>
               <th>Email</th>
-              <th>Dowload file</th>
+              <th>Prescription</th>
               <th>Ordered Medicine</th>
               <th>Status</th>
               <th>Action</th>
@@ -50,9 +50,11 @@ const Appointments = () => {
                     <td>{appnt.email}</td>
                     <td><Button onClick={()=>{handleDownload(appnt._id)}}>Download Prescription </Button></td>
                     <td>
-                      <Link to={`/doctors/${appnt.doctor_id}`}>
-                        go to doctor
+                      <Button>
+                      <Link to={`/doctors/${appnt.doctor_id}`} style={{color: 'black', textDecoration: "none", color: "inherit"}}>
+                        View Pharmacy
                       </Link>
+                      </Button>
                     </td>
                     {appnt.approved ? (
                       appnt.completed ? (
@@ -62,7 +64,7 @@ const Appointments = () => {
                             <Button
                               onClick={async () => {
                                 await deleteAppointment(appnt._id);
-                                setToastMessage("Appointment deleted");
+                                setToastMessage("Prescription deleted");
                                 setToast(true);
                                 refreshData();
                               }}
@@ -78,7 +80,7 @@ const Appointments = () => {
                             <Button
                               onClick={async () => {
                                 await completeAppointment(appnt._id);
-                                setToastMessage("Appointment completed");
+                                setToastMessage("Prescription completed");
                                 setToast(true);
                                 refreshData();
                               }}
@@ -95,7 +97,7 @@ const Appointments = () => {
                           <Button
                             onClick={async () => {
                               await approveAppointment(appnt._id);
-                              setToastMessage("Appointment Approved");
+                              setToastMessage("Prescription Approved");
                               setToast(true);
                               refreshData();
                             }}

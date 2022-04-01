@@ -2,11 +2,11 @@ const controllers = require('./doctors.controllers');
 const validators = require('./doctors.validators');
 
 const routes = {
-  list: ['GET', '', 'List all Doctor', ],
+  list: ['GET', '', 'List all Pharmacy', ],
   update: {
     method: 'PUT',
     path: '/update/{id}',
-    description: 'Update Doctor',
+    description: 'Update Pharmacy',
     uploadPayload: {
       output: 'stream',
       parse: true,
@@ -18,7 +18,7 @@ const routes = {
   register: {
     method: 'POST',
     path: '/register',
-    description: 'Register new doctor',
+    description: 'Register new pharmacy',
     uploadPayload: {
       output: 'stream',
       parse: true,
@@ -30,13 +30,13 @@ const routes = {
   archive: {
     method: 'DELETE',
     path: '/{id}',
-    description: 'Archive the doctor',
+    description: 'Archive the pharmacy',
     permissions: ["admin"],
   },
   getById: {
     method: 'GET',
     path: '/{id}',
-    description: 'Get Doctor By id',
+    description: 'Get Pharmacy By id',
   },
 };
 

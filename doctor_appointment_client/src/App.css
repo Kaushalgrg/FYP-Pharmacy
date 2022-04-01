@@ -24,8 +24,9 @@
   color: rgb(0, 0, 0);
 }
 .nav-color{
-  background-color: rgb(59, 210, 221);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,120,101,1) 100%);
 }
+
 
 .App-link {
   color: #000507;

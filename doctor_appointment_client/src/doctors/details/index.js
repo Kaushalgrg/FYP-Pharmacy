@@ -41,7 +41,7 @@ const DetailEdit = () => {
         console.log(res);
         if(res.success){
             setToastHeader("Success")
-            setToastMessage("Doctor Updated!")
+            setToastMessage("Pharmacy Updated!")
             setToastBg('success')
         }else{
             setToastHeader("Failed!")
@@ -57,14 +57,14 @@ const DetailEdit = () => {
                     <Row className="justify-content-md-center">
                         <Col xs lg="6">
                             <Form.Group className="mb-3" >
-                                <Form.Label>Doctor Name</Form.Label>
+                                <Form.Label>Pharmacy Name</Form.Label>
                                 <Form.Control type="text"
                                     value={values.name}
                                     required
                                     onChange={(e) => {
                                         setValues({ ...values, name: e.target.value });
                                     }}
-                                    placeholder="Doctor's name" />
+                                    placeholder="Pharmacy's name" />
                             </Form.Group>
                             <Form.Group className="mb-3" >
                                 <Form.Label>Email address</Form.Label>
@@ -107,10 +107,10 @@ const DetailEdit = () => {
                                     onChange={(e) => {
                                         setValues({ ...values, designation: e.target.value });
                                     }}
-                                    placeholder="Doctor's designation" />
+                                    placeholder="Pharmacy's designation" />
                             </Form.Group>
                             <Form.Group className="mb-3" >
-                                <Form.Label>Doctor's description</Form.Label>
+                                <Form.Label>Pharmacy's description</Form.Label>
                                 <Form.Control
                                     value={values.description}
                                     onChange={(e) => {

@@ -2,11 +2,11 @@ const controllers = require("./appointment.controllers");
 const validators = require("./appointment.validators");
 
 const routes = {
-  list: ["GET", "", "List all Appointment"],
+  list: ["GET", "", "List all Orders"],
   update: {
     method: "PUT",
     path: "/update/{id}",
-    description: "Update appointment",
+    description: "Update Order",
     uploadPayload: {
       output: "stream",
       parse: true,
@@ -18,7 +18,7 @@ const routes = {
   register: {
     method: "POST",
     path: "/register",
-    description: "Register new appointment",
+    description: "Register new Prescription",
     uploadPayload: {
       output: "stream",
       parse: true,
@@ -29,19 +29,19 @@ const routes = {
   archive: {
     method: "DELETE",
     path: "/{id}",
-    description: "Archive the appointment",
+    description: "Archive the Prescription",
     permissions: ["admin"],
   },
   approve: {
     method: "PUT",
     path: "/approve/{id}",
-    description: "Approve a appointment",
+    description: "Approve a Prescription",
     permissions: ["admin"],
   },
   complete: {
     method: "PUT",
     path: "/complete/{id}",
-    description: "Approve a appointment",
+    description: "Approve a Prescription",
     permissions: ["admin"],
   },
   getById: {
@@ -52,7 +52,7 @@ const routes = {
   getByDoctorId: {
     method: "GET",
     path: "/getbydocid/{doctor_id}",
-    description: "Get appointment By doctor id",
+    description: "Get prescription By doctor id",
   },
   getProblemDoc: {
     method: "GET",
