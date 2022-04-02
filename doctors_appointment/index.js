@@ -48,7 +48,7 @@ app.connectServer(server)
 
 const swaggerOptions = {
   info: {
-    title: "hospital management",
+    title: "Pharmacy ",
     version: process.env.npm_package_version,
     description: process.env.npm_package_description,
   },

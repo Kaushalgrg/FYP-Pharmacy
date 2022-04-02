@@ -20,7 +20,7 @@ const Login = () => {
   const { login } = useContext(UserContext);
   return (
     <Container fluid="sm">
-      <h1>Admin Login</h1>
+      <h1>Login</h1>
       <Form>
         <Row>
           <Form.Group className="mb-3" controlId="formBasicEmail">

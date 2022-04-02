@@ -47,17 +47,17 @@ const routes = {
   getById: {
     method: "GET",
     path: "/{id}",
-    description: "Get appointment By id",
+    description: "Get prescription By id",
   },
   getByDoctorId: {
     method: "GET",
     path: "/getbydocid/{doctor_id}",
-    description: "Get prescription By doctor id",
+    description: "Get prescription By pharmacy id",
   },
   getProblemDoc: {
     method: "GET",
     path: "/problem/{id}",
-    description: "get problem file",
+    description: "get prescription file",
   },
 };
 

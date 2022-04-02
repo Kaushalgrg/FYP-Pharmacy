@@ -1,10 +1,10 @@
-const AdminModel = require('./admin.model')
+const CustomerModel = require('./customer.model')
 require('dotenv').config('/.env');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const DataUtils  = require('../../helpers/data');
 
-const Admin= {
+const Customer= {
     async add(data) {
         return await this.register(data);
     },
@@ -17,20 +17,20 @@ const Admin= {
             start,
             limit,
             sort: { created_at: -1 },
-            model: AdminModel,
+            model: CustomerModel,
             query,
         });
     },
     async getById(_id) {
-        return AdminModel.findOne({ _id, is_archived: false });
+        return CustomerModel.findOne({ _id, is_archived: false });
     },
     async findById(_id){
-        return AdminModel.findOne({ _id: id, is_archived: false}).select('-password');
+        return CustomerModel.findOne({ _id: id, is_archived: false}).select('-password');
     },
     async verifyToken (data){
         const token = data;
         const decoded = jwt.verify(token, process.env.TOKEN_KEY);
-        const user = await AdminModel.findOne({ email: decoded.email });
+        const user = await CustomerModel.findOne({ email: decoded.email });
         if (user) {
             return user.is_admin;
         } else {
@@ -41,13 +41,13 @@ const Admin= {
         token = req.headers.access_token;
         const { oldPassword,newPassword} = req.payload;
         const decoded = jwt.verify(token, process.env.TOKEN_KEY);
-        const user = await AdminModel.findOne({ email: decoded.email });
+        const user = await CustomerModel.findOne({ email: decoded.email });
         if (user) {
             try{
                 //const res = await this.login({email: user.email, password: oldPassword});
                 const salt = parseInt(process.env.TOKEN_KEY);
                 encrypted_password = await bcrypt.hash(newPassword, salt);
-                const done = await AdminModel.findOneAndUpdate({email: decoded.email},{password: encrypted_password});
+                const done = await CustomerModel.findOneAndUpdate({email: decoded.email},{password: encrypted_password});
                 if(done){
                     return {message: "Password change successfully"};
                 }
@@ -61,27 +61,28 @@ const Admin= {
     },
 
     async register(data) {
-        const {email, password } =  data;
+        const {name, email, password } =  data;
 
         if(!(email && password)){
             return "All input is required";
         }
-        const oldUser = await AdminModel.findOne({email});
+        const oldUser = await CustomerModel.findOne({email});
         if(oldUser){
-            return "admin already exist, please login";
+            return "Customer already exist, please login";
         }
         const salt = parseInt(process.env.TOKEN_KEY);
         encrypted_password = await bcrypt.hash(password, salt);
 
-        const user = await AdminModel.create({
+        const user = await CustomerModel.create({
+            name: name,
             email: email.toLowerCase(),
             password: encrypted_password
         });
         const token = jwt.sign(
-            {user_id : user._id, email, is_admin: user.is_admin},
+            {user_id : user._id, email, is_user: user.is_user},
             salt,
             {
-                expiresIn: "2h",
+                expiresIn: "12h",
             }
         );
         user.token  = token;
@@ -93,11 +94,11 @@ const Admin= {
             if (!(email && password)) {
                 throw "All input is required";
             }
-            const user = await AdminModel.findOne({ email });
+            const user = await CustomerModel.findOne({ email });
             if (user) {
                 if(await bcrypt.compare(password, user.password)){
                     const token = jwt.sign(
-                        {user_id : user._id, email, is_admin: user.is_admin},
+                        {user_id : user._id, email, is_user: user.is_user},
                         process.env.TOKEN_KEY,
                     );
                     user.token = token;
@@ -118,24 +119,24 @@ const Admin= {
     },
 
     async archive(id) {
-        return AdminModel.findOneAndUpdate({ _id: id, is_archived: false }, { is_archived: true });
+        return CustomerModel.findOneAndUpdate({ _id: id, is_archived: false }, { is_archived: true });
     },
 
 }
 
 module.exports = {
-    Admin,
-    add: (req) => Admin.add(req.payload),
+    Customer,
+    add: (req) => Customer.add(req.payload),
     list: (req) => {
       const start = req.query.start || 0;
       const limit = req.query.limit || 20;
       const from = req.query.from || null;
-      return Admin.list(start, limit, from);
+      return Customer.list(start, limit, from);
     },
-    getById: (req) => Admin.getById(req.params.id),
-    register: (req) =>Admin.register(req.payload),
-    login: (req) =>Admin.login(req.payload),
-    archive: (req) => Admin.archive(req.params.id),
-    verifyToken: (req) => Admin.verifyToken(req.params.token),
-    changePassword:(req)=>Admin.changePassword(req)
+    getById: (req) => Customer.getById(req.params.id),
+    register: (req) =>Customer.register(req.payload),
+    login: (req) =>Customer.login(req.payload),
+    archive: (req) => Customer.archive(req.params.id),
+    verifyToken: (req) => Customer.verifyToken(req.params.token),
+    changePassword:(req)=>Customer.changePassword(req)
   };

@@ -85,7 +85,7 @@ const Appointments = () => {
                                 refreshData();
                               }}
                             >
-                              Complete
+                              Delivered
                             </Button>{" "}
                           </td>
                         </>
