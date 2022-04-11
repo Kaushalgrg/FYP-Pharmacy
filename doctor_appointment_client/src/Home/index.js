@@ -95,10 +95,10 @@ export default function Home(){
             <div className="col-sm-6 col-lg-3 py-3">
               <h5>Our partner</h5>
               <ul className="footer-menu">
-                <li><a href="#">One-Fitness</a></li>
-                <li><a href="#">One-Drugs</a></li>
-                <li><a href="#">One-Live</a></li>
-              </ul>
+                  <li><a href="#">Nepal Pharmaceuticals ltd.</a></li>
+                  <li><a href="#">National Health Care</a></li>
+                  <li><a href="#">Asian Pharmaceuticals Pvt. Ltd.</a></li>
+                </ul>
             </div>
             <div className="col-sm-6 col-lg-3 py-3">
               <h5>Contact</h5>
