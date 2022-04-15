@@ -84,13 +84,13 @@ const Products = () => {
                     <Typography variant="h7" color="text.primary" fontWeight="bold">Designation:
                       {product.designation}<br />
                     </Typography> */}
-                    <Typography variant="h7" color="text.primary" fontWeight="bold">Product name:
+                    <Typography variant="h7" color="text.primary" fontWeight="bold">Product's Name:
                       {product.product_name}<br />
                     </Typography>
-                    <Typography variant="h7" color="text.primary" fontWeight="bold">Product use:
+                    <Typography variant="h7" color="text.primary" fontWeight="bold">Product's Use:
                       {product.use}<br />
                     </Typography>
-                    <Typography variant="h7" color="text.primary" fontWeight="bold">Product price:
+                    <Typography variant="h7" color="text.primary" fontWeight="bold">Product's Price:
                       {product.price}
                     </Typography>
                   </CardContent>

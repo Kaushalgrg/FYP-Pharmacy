@@ -17,6 +17,7 @@ import Home from "./Home";
 import About from "./About";
 import Login from "./Login";
 import AddDoctor from "./doctors/addDoctor";
+import AddProduct  from "./products/addProducts";
 import { useEffect, useState } from "react";
 import { validate } from "./services/db";
 import { UserContextProvider } from "./user/context";
@@ -76,6 +77,11 @@ function App() {
                     authenticated={authenticated}
                     path="/doctors/add"
                     component={AddDoctor}
+                  />
+                  <ProtectedRoute
+                    authenticated={authenticated}
+                    path="/products/add"
+                    component={AddProduct}
                   />
                   <ProtectedRoute
                     authenticated={authenticated}

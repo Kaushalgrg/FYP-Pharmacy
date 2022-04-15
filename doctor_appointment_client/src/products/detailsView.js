@@ -4,13 +4,15 @@ const Detail = ({ open, product, handleClose }) => {
         <Modal show={open} onHide={handleClose}>
             <Card >
                 <Card.Body>
-                    <Card.Title>Prodcut code:{product.product_code}</Card.Title>
-                    <Card.Title>Prodcut Name:{product.product_name}</Card.Title>
-                    <Card.Text>
-                        catagories: {product.catatgories}
-                    </Card.Text>
+                    <Card.Title>Product Code:{product.product_code}</Card.Title>
+                    {/* <Card.Text>Product Name:{product.product_name}</Card.Text> */}
+                    {/* <Card.Text>
+                        Catagory: {product.catagories}
+                    </Card.Text> */}
                 </Card.Body>
                 <ListGroup className="list-group-flush">
+                    <ListGroupItem>Product Name: {product.product_name}</ListGroupItem>
+                    <ListGroupItem>Catagory: {product.catagories}</ListGroupItem>
                     <ListGroupItem>Use: {product.use}</ListGroupItem>
                     <ListGroupItem>Price: {product.price}  </ListGroupItem>
                     </ListGroup>

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const schema = {
     product_code: {type: String, joi: Joi.string().description("Product code")},
-    prodcut_name: { type: String, joi: Joi.string().description("Product name") },
+    product_name: { type: String, joi: Joi.string().description("Product name")},
     img: { type: String, joi: Joi.string().optional().description("Product image url") },
     catagories: { type: Array, joi: Joi.array().description("Product catagories") },
     use: { type: String, joi: Joi.string().description("Product use") },

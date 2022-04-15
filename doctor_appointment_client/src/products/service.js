@@ -47,7 +47,7 @@ export const addProduct = async (data) => {
     }
     if (res.found) {
         try {
-            const response = await axios.post(PRODUCTS + `/register`, formData,
+            const response = await axios.post(PRODUCTS + `/add`, formData,
                 { headers: { access_token: res.token } },
             );
             return {

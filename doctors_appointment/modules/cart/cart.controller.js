@@ -23,7 +23,7 @@ const Cart = {
     },
 
     async addtoCart(data) {
-        const item = await CartModel.findOne({cart_code: data.cart_code})
+        const item = await CartModel.findOne({product_code: data.product_code})
         if(item){
             throw {message :"Product already added", code: 400};
         }

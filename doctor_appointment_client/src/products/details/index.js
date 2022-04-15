@@ -110,7 +110,7 @@ const DetailEdit = () => {
                                     placeholder="Product's Use:" />
                             </Form.Group>
                             <Form.Group className="mb-3" >
-                                <Form.Label>Pharmacy's Price</Form.Label>
+                                <Form.Label>Product's Price</Form.Label>
                                 <Form.Control
                                     value={values.price}
                                     onChange={(e) => {

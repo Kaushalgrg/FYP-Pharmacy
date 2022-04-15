@@ -83,6 +83,7 @@ export default function Navs({ authenticated }) {
               {authenticated ? (
                 <>
                   <Nav.Link href="/doctors/add">Add Pharmacy</Nav.Link>
+                  <Nav.Link href="/products/add">Add Product</Nav.Link>
                   <Nav.Link href="/appointments">List Mediceine Orders</Nav.Link>
                 </>
               ) : (
