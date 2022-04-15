@@ -13,6 +13,18 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Login from '../Login';
+import { UserContext } from "../user/context";
+import { saveLoginInfo } from "../services/db";
+import React, { useContext, useState } from "react";
+import {
+  Form,
+  Button,
+  Container,
+  Row,
+  Toast,
+  ToastContainer,
+} from "react-bootstrap";
+
 
 function Copyright(props) {
   return (
@@ -81,6 +93,7 @@ const Login = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={(e) => {e.preventDefault(); setEmail(e.target.value);}}
               />
               <TextField
                 margin="normal"
@@ -91,6 +104,10 @@ const Login = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setPassword(e.target.value);
+                }}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -151,6 +168,15 @@ const Login = () => {
             </Box>
           </Box>
         </Grid>
+        
+      <ToastContainer className="p-3" position="top-end">
+        <Toast show={showToast} onClose={() => setToast(false)} bg={toastBg}>
+          <Toast.Header>
+            <strong className="me-auto">{toastHeader}</strong>
+          </Toast.Header>
+          <Toast.Body>{toastMessage}</Toast.Body>
+        </Toast>
+      </ToastContainer>
       </Grid>
     </ThemeProvider>
   );

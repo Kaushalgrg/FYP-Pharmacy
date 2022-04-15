@@ -12,6 +12,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import { ProductContextProvider } from "./products/context";
 import Home from "./Home";
 import About from "./About";
 import Login from "./Login";
@@ -23,6 +24,7 @@ import DetailEdit from "./doctors/details";
 import ChangePassword from "./user";
 import Appointments from "./appointments";
 import SignUp from "./Signup";
+import Product from "./products"
 
 const ProtectedRoute = ({ authenticated, component: Component, ...rest }) => {
   return (
@@ -51,6 +53,8 @@ function App() {
   }, [validated]);
   return (
     <Router>
+      <ProductContextProvider>
+        
       <AppointmentContextProvider>
         <UserContextProvider>
           <DoctorContextProvider>
@@ -67,6 +71,7 @@ function App() {
                   <Route path="/about" component={About} />
                   <Route path="/doctors" exact component={Doctors} />
                   <Route path="/signup" exact component={SignUp} />
+                   <Route path="/products" exact component={Product} /> 
                   <ProtectedRoute
                     authenticated={authenticated}
                     path="/doctors/add"
@@ -90,8 +95,11 @@ function App() {
               <div><h1>Loading.. Please wait....</h1></div>
             )}
           </DoctorContextProvider>
+
         </UserContextProvider>
       </AppointmentContextProvider>
+      
+      </ProductContextProvider>
     </Router>
   );
 }

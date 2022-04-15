@@ -6,7 +6,7 @@ const Product = {
         return await this.register(data);
     },
     async list(start, limit, from) {
-        const $match = { is_archived: false };
+        const $match = {  };
         if (from) $match.from = { $regex: new RegExp(`${from}`), $options: 'gi' };
         const query = [{ $match }];
 

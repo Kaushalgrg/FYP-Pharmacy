@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import {
   NavDropdown,
   Navbar,
@@ -77,6 +77,7 @@ export default function Navs({ authenticated }) {
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/doctors">List Pharmacy</Nav.Link>
+               <Nav.Link href="/products">List Products</Nav.Link> 
               <Nav.Link href="/about">About-us</Nav.Link>
               <Nav.Link href="/signup">Register</Nav.Link>
               {authenticated ? (

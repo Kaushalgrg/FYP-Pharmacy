@@ -5,4 +5,6 @@ module.exports = {
   DOCTORS: base_url + '/doctors',
   ADMIN: base_url + '/admin',
   APPOINTMENT: base_url + '/appointment',
+  
+  PRODUCTS: base_url + '/products',
 };
