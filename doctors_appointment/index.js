@@ -7,10 +7,12 @@ const HapiSwagger = require('hapi-swagger');
 const app = require('./app');
 const registerFeats = require('./boot/register-modules')
 
+//Port no. for the database
 const port = 4000;
 
 const db = 'mongodb://localhost:27017/hospital'
 
+//Connecting to database using mongoose framework
 mongoose.connect(db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

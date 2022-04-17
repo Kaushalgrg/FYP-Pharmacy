@@ -9,6 +9,7 @@ const schema = {
     catagories: { type: Array, joi: Joi.array().description("Product catagories") },
     use: { type: String, joi: Joi.string().description("Product use") },
     price: { type: String, joi: Joi.string().description("Product price") },
+    is_archived: { type: Boolean, required: true, default: false },
     //...commonSchema,
 };
 

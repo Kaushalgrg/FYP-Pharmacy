@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, NavLink } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import {
   NavDropdown,
   Navbar,
@@ -10,6 +10,8 @@ import {
 } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { UserContext } from "../user/context";
+import Badge from '@mui/material/Badge';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Logout = ({ show, handleClose }) => {
   const { logout } = useContext(UserContext);
@@ -70,7 +72,7 @@ export default function Navs({ authenticated }) {
             </div> {/* .container */}
           </div>
       <Navbar collapseOnSelect expand="lg" className="nav-color" variant="dark">
-        <Container>
+        <Container display="flex">
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
           <Link to = "/"><a className="navbar-brand" ><span className="text-primary">औशधि</span>-पसल</a></Link>
@@ -79,12 +81,18 @@ export default function Navs({ authenticated }) {
               <Nav.Link href="/doctors">List Pharmacy</Nav.Link>
                <Nav.Link href="/products">List Products</Nav.Link> 
               <Nav.Link href="/about">About-us</Nav.Link>
+              <Nav.Link href="/cart">
+              <Badge badgeContent={1} color="secondary">
+                <ShoppingCartIcon color="inherit"/>
+              </Badge>
+            </Nav.Link>
+            
               <Nav.Link href="/signup">Register</Nav.Link>
               {authenticated ? (
                 <>
                   <Nav.Link href="/doctors/add">Add Pharmacy</Nav.Link>
                   <Nav.Link href="/products/add">Add Product</Nav.Link>
-                  <Nav.Link href="/appointments">List Mediceine Orders</Nav.Link>
+                  <Nav.Link href="/appointments">List Medicine Orders</Nav.Link>
                 </>
               ) : (
                 <Nav.Link href="/login">Login</Nav.Link>
