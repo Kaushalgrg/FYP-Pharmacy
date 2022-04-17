@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import { validate } from "./services/db";
 import { UserContextProvider } from "./user/context";
 import DetailEdit from "./doctors/details";
+import ProductDetailEdit from "./products/details"
 import ChangePassword from "./user";
 import Appointments from "./appointments";
 import SignUp from "./Signup";
@@ -94,6 +95,7 @@ function App() {
                     component={ChangePassword}
                   />
                   <Route path={`/doctors/:id`} component={DetailEdit} />
+                  <Route path={`/products/:id`} component={ProductDetailEdit} />
                   <Redirect to="/" />
                 </Switch>
               </div>
