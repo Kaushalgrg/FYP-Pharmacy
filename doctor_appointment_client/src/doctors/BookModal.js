@@ -86,6 +86,8 @@ function BookDoctor({ id, show, handleClose, handleShow }) {
               <Form.Control
                 type="number"
                 value={values.age}
+                min={1}
+                max={100}
                 onChange={(e) => {
                   setValues({ ...values, age: e.target.value });
                 }}

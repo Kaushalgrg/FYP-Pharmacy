@@ -1,3 +1,4 @@
+import { Category } from "@material-ui/icons";
 import { useContext, useState } from "react";
 import {
   Form,
@@ -35,6 +36,8 @@ const AddProduct = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    console.log(values.catagories);
     const res = await addProduct(values);
     console.log(res);
     if (res.success) {
@@ -54,8 +57,8 @@ const AddProduct = () => {
         <Form onSubmit={handleSubmit}>
           <Row className="justify-content-md-center">
             <Col xs lg="6">
-            <Form.Group className="mb-3">
-                <Form.Label>Product Code:</Form.Label> 
+              <Form.Group className="mb-3">
+                <Form.Label>Product Code:</Form.Label>
                 <Form.Control
                   type="text"
                   value={values.product_code}
@@ -67,7 +70,7 @@ const AddProduct = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Product Name:</Form.Label> 
+                <Form.Label>Product Name:</Form.Label>
                 <Form.Control
                   type="text"
                   value={values.product_name}
@@ -89,7 +92,7 @@ const AddProduct = () => {
                   }}
                   placeholder="Product's image url"
                 />
-                </Form.Group>
+              </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Catagories:</Form.Label>
                 <Form.Control
@@ -102,22 +105,24 @@ const AddProduct = () => {
                   placeholder="example, example2, example3,..."
                 />
                 <Form.Group className="mb-3">
-                <Form.Label>Product Use:</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={values.use}
-                  required
-                  onChange={(e) => {
-                    setValues({ ...values, use: e.target.value });
-                  }}
-                  placeholder="Product use"
-                />
-              </Form.Group>
+                  <Form.Label>Product Use:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={values.use}
+                    required
+                    onChange={(e) => {
+                      setValues({ ...values, use: e.target.value });
+                    }}
+                    placeholder="Product use"
+                  />
+                </Form.Group>
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Price:</Form.Label>
                 <Form.Control
                   value={values.price}
+                  min={10}
+                  //max={}
                   required
                   onChange={(e) => {
                     setValues({ ...values, price: e.target.value });

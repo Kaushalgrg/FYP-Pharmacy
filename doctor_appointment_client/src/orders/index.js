@@ -12,7 +12,7 @@ const Orders = () => {
     downloadFile,
   } = useContext(OrderContext);
 
-  const handleDownload=async(id)=>{
+  const handleDownload = async (id) => {
     await downloadFile(id);
   }
   const [showToast, setToast] = useState(false);
@@ -25,9 +25,9 @@ const Orders = () => {
         <Table striped bordered hover>
           <thead>
             <tr>
-            <th>Order-ID</th>
-              <th>Patient's name</th>
-              <th>Age</th>
+              <th>Order-ID</th>
+              <th>Customer's name</th>
+              <th>Product ID</th>
               <th>Gender</th>
               <th>Phone </th>
               <th>Email</th>
@@ -48,12 +48,12 @@ const Orders = () => {
                     <td>{appnt.gender}</td>
                     <td>{appnt.phone}</td>
                     <td>{appnt.email}</td>
-                    <td><Button onClick={()=>{handleDownload(appnt._id)}}>Download Order </Button></td>
+                    <td><Button onClick={() => { handleDownload(appnt._id) }}>Download Order </Button></td>
                     <td>
                       <Button>
-                      <Link to={`/doctors/${appnt.doctor_id}`} style={{color: 'black', textDecoration: "none", color: "inherit"}}>
-                        View Pharmacy
-                      </Link>
+                        <Link to={`/doctors/${appnt.doctor_id}`} style={{ color: 'black', textDecoration: "none", color: "inherit" }}>
+                          View Pharmacy
+                        </Link>
                       </Button>
                     </td>
                     {appnt.approved ? (

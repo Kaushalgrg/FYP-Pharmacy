@@ -35,7 +35,7 @@ const Product = {
         if(!item){
             throw{message: "Product not found", code: 4000}
         }
-        else if(data.product_code == user.product_code){
+        else if(data.product_code == item.product_code){
             return await ProductModel.findByIdAndUpdate(id, data);
         }
         else if(item2){

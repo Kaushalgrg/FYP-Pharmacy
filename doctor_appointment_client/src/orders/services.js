@@ -2,12 +2,12 @@ import axios from "axios";
 import API from "../constants/api";
 import { getToken } from "../services/db";
 
-const APPOINTMENT = API.APPOINTMENT;
+const ORDER = API.ORDER;
 
-export const getAppointments = async (filter) => {
+export const getOrders = async (filter) => {
   const res = await getToken();
   try {
-    const response = await axios.get(APPOINTMENT, {
+    const response = await axios.get(ORDER, {
       headers: { access_token: res.token },
     });
     return response.data.data;
@@ -16,31 +16,31 @@ export const getAppointments = async (filter) => {
   }
 };
 
-export const addAppointment = async (data) => {
+export const addOrder = async (data) => {
   const formData = new FormData();
   for (var key in data) {
     formData.append(key, data[key]);
   }
   try {
-    const response = await axios.post(APPOINTMENT + "/register", formData, {
+    const response = await axios.post(ORDER + "/register", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
-    return { message: "appointment added", error: false };
+    return { message: "order added", error: false };
   } catch (err) {
     return { message: err.response.data.message, error: true };
   }
 };
 
-export const approveAppointment = async (id) => {
+export const approveOrder = async (id) => {
   const res = await getToken();
   if (res.found) {
     try {
       const response = await axios.put(
-        APPOINTMENT + `/approve/${id}`,
+        ORDER + `/approve/${id}`,
         {},
         { headers: { access_token: res.token } }
       );
-      return { message: "appointment approved", error: false };
+      return { message: "order approved", error: false };
     } catch (err) {
       return { message: err.response.data.message, error: true };
     }
@@ -50,12 +50,12 @@ export const approveAppointment = async (id) => {
 };
 
 
-export const completeAppointment = async (id) => {
+export const completeOrder = async (id) => {
   const res = await getToken();
   if (res.found) {
     try {
       const response = await axios.put(
-        APPOINTMENT + `/complete/${id}`,
+        ORDER + `/complete/${id}`,
         {},
         {
           headers: {
@@ -63,7 +63,7 @@ export const completeAppointment = async (id) => {
           },
         }
       );
-      return { message: "appointment completed", error: false };
+      return { message: "order completed", error: false };
     } catch (err) {
       return { message: err.response.data.message, error: true };
     }
@@ -72,17 +72,17 @@ export const completeAppointment = async (id) => {
   }
 };
 
-export const deleteAppointment = async (id) => {
+export const deleteOrder = async (id) => {
   const res = await getToken();
   if (res.found) {
     try {
       const response = await axios.delete(
-        APPOINTMENT + `/${id}`,
+        ORDER + `/${id}`,
         {
           headers: { access_token: res.token },
         }
       );
-      return { message: "appointment deleted", error: false };
+      return { message: "order deleted", error: false };
     } catch (err) {
       return { message: err.response.data.message, error: true };
     }

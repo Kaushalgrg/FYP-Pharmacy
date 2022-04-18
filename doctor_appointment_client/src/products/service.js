@@ -26,6 +26,9 @@ export const getProductById = async (id) => {
     }
 }
 
+function toFormData(o) {
+    return Object.entries(o).reduce((d, e) => (d.append(...e), d), new FormData())
+}
 export const deleteProduct = async (id) => {
     const res = await getToken();
     try {
@@ -41,10 +44,15 @@ export const deleteProduct = async (id) => {
 
 export const addProduct = async (data) => {
     const res = await getToken();
-    const formData = new FormData();
-    for (var key in data) {
-        formData.append(key, data[key]);
+    if(!Array.isArray(data.catagories)){
+        data.catagories = data.catagories.split(',')
+
     }
+    const formData = toFormData(data);
+        formData.delete("catagories")
+        data.catagories.map((req) => {
+            formData.append("catagories", req)
+        })
     if (res.found) {
         try {
             const response = await axios.post(PRODUCTS + `/add`, formData,
@@ -65,10 +73,17 @@ export const addProduct = async (data) => {
 
 export const updateProduct = async (id, data) => {
     const res = await getToken();
-    const formData = new FormData();
-    for (var key in data) {
-        formData.append(key, data[key]);
+
+    if(!Array.isArray(data.catagories)){
+        data.catagories = data.catagories.split(',')
+
     }
+    const formData = toFormData(data);
+        formData.delete("catagories")
+        data.catagories.map((req) => {
+            formData.append("catagories", req)
+        })
+
     formData.delete('_id');
     formData.delete('is_archived');
     formData.delete('is_registered');

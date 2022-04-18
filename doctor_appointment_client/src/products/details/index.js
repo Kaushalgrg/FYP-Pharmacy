@@ -119,7 +119,7 @@ const DetailEdit = () => {
                                     placeholder="Product's Price:" />
                             </Form.Group>
                             <Button type="submit" variant="success"
-                            >Add Product</Button>{' '}
+                            >Update Product</Button>{' '}
                             <Button variant="outline-dark" onClick={resetValues}>Reset</Button>
                         </Col>
                     </Row>

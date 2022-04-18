@@ -1,6 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react';
 import action from './action';
-import appointmentReducer from './reducer';
+import orderReducer from './reducer';
 import * as Services from './services';
 import { useCallback } from 'react';
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
 export const OrderContext = createContext(initialState);
 
 export const OrderContextProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(appointmentReducer, initialState);
+    const [state, dispatch] = useReducer(orderReducer, initialState);
     async function refreshData() {
         dispatch({ type: action.REFRESH_DATA });
     }
