@@ -2,7 +2,7 @@ import axios from "axios";
 import API from "../constants/api";
 import { getToken } from "../services/db";
 
-const ORDER = API.ORDER;
+const ORDER = API.ORDERS;
 
 export const getOrders = async (filter) => {
   const res = await getToken();

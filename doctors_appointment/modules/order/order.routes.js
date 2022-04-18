@@ -18,7 +18,7 @@ const routes = {
   register: {
     method: "POST",
     path: "/register",
-    description: "Register new Prescription",
+    description: "Register new Order",
     uploadPayload: {
       output: "stream",
       parse: true,
@@ -29,19 +29,19 @@ const routes = {
   archive: {
     method: "DELETE",
     path: "/{id}",
-    description: "Archive the Prescription",
+    description: "Archive the Order",
     permissions: ["admin"],
   },
   approve: {
     method: "PUT",
     path: "/approve/{id}",
-    description: "Approve a Prescription",
+    description: "Approve a Order",
     permissions: ["admin"],
   },
   complete: {
     method: "PUT",
     path: "/complete/{id}",
-    description: "Approve a Prescription",
+    description: "Approve a Order",
     permissions: ["admin"],
   },
   getById: {
@@ -52,7 +52,7 @@ const routes = {
   getByDoctorId: {
     method: "GET",
     path: "/getbydocid/{doctor_id}",
-    description: "Get prescription By pharmacy id",
+    description: "Get prescription By product id",
   },
   getProblemDoc: {
     method: "GET",

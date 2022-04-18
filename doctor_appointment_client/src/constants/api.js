@@ -6,5 +6,5 @@ module.exports = {
   ADMIN: base_url + '/admin',
   APPOINTMENT: base_url + '/appointment',
   PRODUCTS: base_url + '/products',
-  ORDERS: base_url + '/orders',
+  ORDERS: base_url + '/order',
 };

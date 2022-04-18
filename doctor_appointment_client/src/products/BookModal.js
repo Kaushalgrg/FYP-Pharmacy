@@ -11,9 +11,9 @@ import {
   ToastContainer,
   Toast
 } from "react-bootstrap";
-import { AppointmentContext } from "../appointments/context";
+import { OrderContext } from "../orders/context";
 function OrderProduct({ id, show, handleClose, handleShow }) {
-  const { addAppointment } = useContext(AppointmentContext);
+  const { addOrder } = useContext(OrderContext);
   const [showToast, setToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastHeader, setToastHeader] = useState("");
@@ -26,7 +26,7 @@ function OrderProduct({ id, show, handleClose, handleShow }) {
     phone: "",
     problem_doc: null,
     medical_problem: "",
-    doctor_id: id,
+    product_id: id,
   });
   const clearValues = () => {
     setValues({
@@ -37,17 +37,17 @@ function OrderProduct({ id, show, handleClose, handleShow }) {
       phone: "",
       problem_doc: null,
       medical_problem: "",
-      doctor_id: "",
+      product_id: "",
     });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (id) {
-      setValues({ ...values, doctor_id: id });
+      setValues({ ...values, product_id: id });
     }
-    const res = await addAppointment(values);
+    const res = await addOrder(values);
     if (!res.error) {
-      setToastHeader("Successly ordered medicine!");
+      setToastHeader("Successly ordered product!");
       setToastMessage(res.message);
       setToastBg("success");
       setToast(true);
@@ -183,7 +183,7 @@ function OrderProduct({ id, show, handleClose, handleShow }) {
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSubmit} >
-            Order Medicine
+            Order Product
           </Button>
         </Modal.Footer>
         <ToastContainer className="p-3" position="top-end">

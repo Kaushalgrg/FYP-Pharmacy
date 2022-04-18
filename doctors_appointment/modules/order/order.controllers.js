@@ -39,27 +39,27 @@ const Order = {
 
   async register(data) {
     const ext = data.problem_doc.hapi['filename'].split('.')[1];
-    const user = await OrderModel.findOne({ email: data.email });
-    const user1 = await OrderModel.findOne({ phone: data.phone });
-    if (user) {
-      throw { message: "Email already registered", code: 400 };
-    }
-    if (user1) {
-      throw { message: "Phone already registered", code: 400 };
-    }
+    // const user = await OrderModel.findOne({ email: data.email });
+    // const user1 = await OrderModel.findOne({ phone: data.phone });
+    // if (user) {
+    //   throw { message: "Email already registered", code: 400 };
+    // }
+    // if (user1) {
+    //   throw { message: "Phone already registered", code: 400 };
+    // }
     const res = await OrderModel.create(data);
     fs.writeFileSync(__dirname +  `/productorder/${res._id}.${ext}`, Buffer(data.problem_doc._data));
     return 0;
   },
   async update(id, data) {
     const user = await OrderModel.findById(id);
-    const user2 = await OrderModel.findOne({ email: data.email });
+    //const user2 = await OrderModel.findOne({ email: data.email });
     if (!user) {
       throw { message: "Prescription not found", code: 4000 };
     } else if (data.email == user.email) {
       return await OrderModel.findByIdAndUpdate(id, data);
-    } else if (user2) {
-      throw { message: "Dublicate email", code: 4000 };
+    // } else if (user2) {
+    //   throw { message: "Dublicate email", code: 4000 };
     } else {
       return await OrderModel.findByIdAndUpdate(id, data);
     }

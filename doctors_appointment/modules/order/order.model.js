@@ -42,13 +42,13 @@ const schema = {
   ...commonSchema,
 };
 
-const AppointmentSchema = mongoose.Schema(schema, {
+const OrderSchema = mongoose.Schema(schema, {
   collection: "order",
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
   toObject: { virtuals: true },
   toJSON: { virtuals: true },
 });
 
-AppointmentSchema.index({ email: 1 }, { unique: true });
+//OrderSchema.index({ email: 1 }, { unique: true });
 
-module.exports = mongoose.model("order", AppointmentSchema);
+module.exports = mongoose.model("order", OrderSchema);

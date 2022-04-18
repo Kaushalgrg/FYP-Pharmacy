@@ -27,6 +27,7 @@ import ChangePassword from "./user";
 import Appointments from "./appointments";
 import SignUp from "./Signup";
 import Product from "./products"
+import { OrderContextProvider } from "./orders/context";
 
 const ProtectedRoute = ({ authenticated, component: Component, ...rest }) => {
   return (
@@ -56,6 +57,8 @@ function App() {
   return (
     <Router>
       <ProductContextProvider>
+        <OrderContextProvider>
+
         
       <AppointmentContextProvider>
         <UserContextProvider>
@@ -106,7 +109,7 @@ function App() {
 
         </UserContextProvider>
       </AppointmentContextProvider>
-      
+      </OrderContextProvider>      
       </ProductContextProvider>
     </Router>
   );

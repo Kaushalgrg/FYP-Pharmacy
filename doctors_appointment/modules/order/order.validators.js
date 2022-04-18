@@ -11,7 +11,7 @@ module.exports = {
     payload: Joi.object({
       name: Joi.string().description("Patients Name"),
       age: Joi.number().description("Patient's age"),
-      doctor_id: Joi.string().description("Pharmacy's id"),
+      product_id: Joi.string().description("Pharmacy's id"),
       phone: Joi.number().optional().description("Patient's phone"),
       email: Joi.string().description("Patient's email"),
       gender: Joi.string().description("Patient's gender"),
@@ -53,7 +53,7 @@ module.exports = {
   },
   getByDoctorId: {
     params: Joi.object({
-      doctor_id: Joi.objectId(),
+      product_id: Joi.objectId(),
     }),
   },
   getProblemDoc: {
