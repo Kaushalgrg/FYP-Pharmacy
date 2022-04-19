@@ -1,70 +1,70 @@
 import { useContext, useState } from "react";
-import { AppointmentContext } from "./context";
+import { CartContext } from "./context";
 import { Link } from "react-router-dom";
 import { Table, Button, Toast, ToastContainer } from "react-bootstrap";
-const Appointments = () => {
+const Carts = () => {
   const {
-    appointments,
-    approveAppointment,
-    deleteAppointment,
-    completeAppointment,
+    carts,
+    approveCart,
+    deleteCart,
+    completeCart,
     refreshData,
     downloadFile,
-  } = useContext(AppointmentContext);
+  } = useContext(CartContext);
 
-  const handleDownload=async(id)=>{
+  const handleDownload = async (id) => {
     await downloadFile(id);
   }
   const [showToast, setToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastBg, setToastBg] = useState("success");
 
-  if (appointments.length > 0) {
+  if (carts.length > 0) {
     return (
       <div>
         <Table striped bordered hover>
           <thead>
             <tr>
-            <th>Order-ID</th>
-              <th>Patient's name</th>
+              <th>Cart-ID</th>
+              <th>Customer's name</th>
               <th>Age</th>
               <th>Gender</th>
               <th>Phone </th>
               <th>Email</th>
-              <th>Prescription</th>
-              <th>Ordered Medicine From</th>
+              <th>Legal document</th>
+              <th>Carted Medicine</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {appointments.map((appnt, i) => {
-              if (!appnt.is_archived) {
+            {carts.map((cartlst, i) => {
+              if (!cartlst.is_archived) {
                 return (
                   <tr key={i}>
-                    <td>{appnt._id}</td>
-                    <td>{appnt.name}</td>
-                    <td>{appnt.age}</td>
-                    <td>{appnt.gender}</td>
-                    <td>{appnt.phone}</td>
-                    <td>{appnt.email}</td>
-                    <td><Button onClick={()=>{handleDownload(appnt._id)}}>Download Prescription </Button></td>
+                    <td>{cartlst._id}</td>
+                    <td>{cartlst.name}</td>
+                    <td>{cartlst.age}</td>
+                    <td>{cartlst.gender}</td>
+                    <td>{cartlst.phone}</td>
+                    <td>{cartlst.email}</td>
+                    <td><Button onClick={() => { handleDownload(cartlst._id) }}>Download Cart </Button></td>
                     <td>
                       <Button>
-                      <Link to={`/doctors/${appnt.doctor_id}`} style={{color: 'black', textDecoration: "none", color: "inherit"}}>
-                        View Pharmacy
-                      </Link>
+                        <Link to={`/products/${cartlst.product_id}`} style={{ color: 'black', textDecoration: "none", color: "inherit" }}>
+                          View Product
+                        </Link>
                       </Button>
                     </td>
-                    {appnt.approved ? (
-                      appnt.completed ? (
+                    {cartlst.approved ? (
+                      cartlst.completed ? (
                         <>
                           <td>Completed</td>
                           <td>
                             <Button
                               onClick={async () => {
-                                await deleteAppointment(appnt._id);
-                                setToastMessage("Prescription deleted");
+                                await deleteCart(cartlst._id);
+                                setToastMessage("Cart deleted");
                                 setToast(true);
                                 refreshData();
                               }}
@@ -79,8 +79,8 @@ const Appointments = () => {
                           <td>
                             <Button
                               onClick={async () => {
-                                await completeAppointment(appnt._id);
-                                setToastMessage("Prescription completed");
+                                await completeCart(cartlst._id);
+                                setToastMessage("Cart completed");
                                 setToast(true);
                                 refreshData();
                               }}
@@ -96,8 +96,8 @@ const Appointments = () => {
                         <td>
                           <Button
                             onClick={async () => {
-                              await approveAppointment(appnt._id);
-                              setToastMessage("Prescription Approved");
+                              await approveCart(cartlst._id);
+                              setToastMessage("Cart Approved");
                               setToast(true);
                               refreshData();
                             }}
@@ -121,7 +121,7 @@ const Appointments = () => {
       </div>
     );
   } else {
-    return <div></div>;
+    return <div> No carts</div>;
   }
 };
-export default Appointments;
+export default Carts;

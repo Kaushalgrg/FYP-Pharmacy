@@ -25,6 +25,7 @@ import DetailEdit from "./doctors/details";
 import ProductDetailEdit from "./products/details"
 import ChangePassword from "./user";
 import Appointments from "./appointments";
+import Orders from "./orders";
 import SignUp from "./Signup";
 import Product from "./products"
 import { OrderContextProvider } from "./orders/context";
@@ -58,8 +59,6 @@ function App() {
     <Router>
       <ProductContextProvider>
         <OrderContextProvider>
-
-        
       <AppointmentContextProvider>
         <UserContextProvider>
           <DoctorContextProvider>
@@ -94,6 +93,11 @@ function App() {
                   />
                   <ProtectedRoute
                     authenticated={authenticated}
+                    path="/orders"
+                    component={Orders}
+                  />
+                  <ProtectedRoute
+                    authenticated={authenticated}
                     path="/admin/changepassword"
                     component={ChangePassword}
                   />
@@ -106,7 +110,6 @@ function App() {
               <div><h1>Loading.. Please wait....</h1></div>
             )}
           </DoctorContextProvider>
-
         </UserContextProvider>
       </AppointmentContextProvider>
       </OrderContextProvider>      

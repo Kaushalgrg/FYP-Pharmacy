@@ -92,7 +92,8 @@ export default function Navs({ authenticated }) {
                 <>
                   <Nav.Link href="/doctors/add">Add Pharmacy</Nav.Link>
                   <Nav.Link href="/products/add">Add Product</Nav.Link>
-                  <Nav.Link href="/appointments">List Medicine Orders</Nav.Link>
+                  <Nav.Link href="/appointments">Medicine Orders</Nav.Link>
+                  <Nav.Link href="/orders">Product Orders</Nav.Link>
                 </>
               ) : (
                 <Nav.Link href="/login">Login</Nav.Link>

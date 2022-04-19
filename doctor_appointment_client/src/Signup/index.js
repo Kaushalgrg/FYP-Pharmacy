@@ -33,6 +33,7 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
+      name: data.get('Name'),
       email: data.get('email'),
       password: data.get('password'),
     });
@@ -60,7 +61,7 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="given-name"
+                  autoComplete="given-name family-name"
                   name="Name"
                   required
                   fullWidth

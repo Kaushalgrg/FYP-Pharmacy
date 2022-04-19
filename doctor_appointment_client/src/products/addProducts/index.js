@@ -1,4 +1,3 @@
-import { Category } from "@material-ui/icons";
 import { useContext, useState } from "react";
 import {
   Form,

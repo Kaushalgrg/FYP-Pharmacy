@@ -27,43 +27,43 @@ const Orders = () => {
             <tr>
               <th>Order-ID</th>
               <th>Customer's name</th>
-              <th>Product ID</th>
+              <th>Age</th>
               <th>Gender</th>
               <th>Phone </th>
               <th>Email</th>
-              <th>Order</th>
-              <th>Ordered Medicine</th>
+              <th>Legal document</th>
+              <th>Ordered Product</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {orders.map((appnt, i) => {
-              if (!appnt.is_archived) {
+            {orders.map((orderlst, i) => {
+              if (!orderlst.is_archived) {
                 return (
                   <tr key={i}>
-                    <td>{appnt._id}</td>
-                    <td>{appnt.name}</td>
-                    <td>{appnt.age}</td>
-                    <td>{appnt.gender}</td>
-                    <td>{appnt.phone}</td>
-                    <td>{appnt.email}</td>
-                    <td><Button onClick={() => { handleDownload(appnt._id) }}>Download Order </Button></td>
+                    <td>{orderlst._id}</td>
+                    <td>{orderlst.name}</td>
+                    <td>{orderlst.age}</td>
+                    <td>{orderlst.gender}</td>
+                    <td>{orderlst.phone}</td>
+                    <td>{orderlst.email}</td>
+                    <td><Button onClick={() => { handleDownload(orderlst._id) }}>Download Document </Button></td>
                     <td>
                       <Button>
-                        <Link to={`/doctors/${appnt.doctor_id}`} style={{ color: 'black', textDecoration: "none", color: "inherit" }}>
-                          View Pharmacy
+                        <Link to={`/products/${orderlst.product_id}`} style={{ color: 'black', textDecoration: "none", color: "inherit" }}>
+                          View Product
                         </Link>
                       </Button>
                     </td>
-                    {appnt.approved ? (
-                      appnt.completed ? (
+                    {orderlst.approved ? (
+                      orderlst.completed ? (
                         <>
                           <td>Completed</td>
                           <td>
                             <Button
                               onClick={async () => {
-                                await deleteOrder(appnt._id);
+                                await deleteOrder(orderlst._id);
                                 setToastMessage("Order deleted");
                                 setToast(true);
                                 refreshData();
@@ -79,7 +79,7 @@ const Orders = () => {
                           <td>
                             <Button
                               onClick={async () => {
-                                await completeOrder(appnt._id);
+                                await completeOrder(orderlst._id);
                                 setToastMessage("Order completed");
                                 setToast(true);
                                 refreshData();
@@ -96,7 +96,7 @@ const Orders = () => {
                         <td>
                           <Button
                             onClick={async () => {
-                              await approveOrder(appnt._id);
+                              await approveOrder(orderlst._id);
                               setToastMessage("Order Approved");
                               setToast(true);
                               refreshData();
@@ -121,7 +121,7 @@ const Orders = () => {
       </div>
     );
   } else {
-    return <div></div>;
+    return <div> No orders</div>;
   }
 };
 export default Orders;

@@ -152,19 +152,19 @@ function OrderProduct({ id, show, handleClose, handleShow }) {
             </FormGroup>
 
             <Form.Group controlId="formFileMultiple" className="mb-3">
-              <Form.Label>Upload medical prescription</Form.Label>
+              <Form.Label>Upload legal document(citizenship/other)</Form.Label>
               <Form.Control type="file"
                 onChange={(e) => {
                   setValues({ ...values, problem_doc: e.target.files[0] })
                 }}
                 multiple style={{ width: "400px" }} />
               <Form.Text className="text-muted">
-                Medical prescription will be kept confidential.
+                Legal document will be kept confidential.
               </Form.Text>
             </Form.Group>
             <FloatingLabel
               controlId="floatingTextarea"
-              label="Describe your medical problem."
+              label="Your reason for buying this product."
             >
               <Form.Control
                 value={values.medical_problem}
