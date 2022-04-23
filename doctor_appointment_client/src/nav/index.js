@@ -78,13 +78,15 @@ export default function Navs({ authenticated }) {
           <Link to = "/"><a className="navbar-brand" ><span className="text-primary">औशधि</span>-पसल</a></Link>
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/doctors">List Pharmacy</Nav.Link>
-               <Nav.Link href="/products">List Products</Nav.Link> 
-              <Nav.Link href="/about">About-us</Nav.Link>
+              <Nav.Link href="/doctors">Pharmacy</Nav.Link>
+               <Nav.Link href="/products">Products</Nav.Link>
+               <Nav.Link href ="/medicines">Medicines</Nav.Link> 
+              {/* <Nav.Link href="/about">About-us</Nav.Link> */}
               <Nav.Link href="/cart">
-              <Badge badgeContent={1} color="secondary">
+              {/* <Badge badgeContent={1} color="secondary">
                 <ShoppingCartIcon color="inherit"/>
-              </Badge>
+              </Badge> */}
+              Cart
             </Nav.Link>
             
               <Nav.Link href="/signup">Register</Nav.Link>
@@ -92,6 +94,7 @@ export default function Navs({ authenticated }) {
                 <>
                   <Nav.Link href="/doctors/add">Add Pharmacy</Nav.Link>
                   <Nav.Link href="/products/add">Add Product</Nav.Link>
+                  <Nav.Link href="/medicines/add">Add Medicine</Nav.Link>
                   <Nav.Link href="/appointments">Medicine Orders</Nav.Link>
                   <Nav.Link href="/orders">Product Orders</Nav.Link>
                 </>

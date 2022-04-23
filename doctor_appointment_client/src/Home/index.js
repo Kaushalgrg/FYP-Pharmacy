@@ -8,7 +8,15 @@ import {
   Button,
   Modal,
 } from "react-bootstrap";
+import emailjs from 'emailjs'
 
+// const Mailer = () => {
+//   function sendEmail(e){
+//     e.preventDefault();
+
+//     emailjs.sendForm('service_iulznh5', 'template_fxwoynl', e.target,)
+//   }
+// }
 export default function Home(){
     return(
       <React.Fragment>
@@ -42,13 +50,14 @@ export default function Home(){
           </div>
         </div> {/* .bg-light */}
       </div> {/* .bg-light */}
+      {/* Booking Form */}
       <div className="page-section">
         <div className="container">
           <h1 className="text-center wow fadeInUp">Book for Check-up</h1>
           <form className="main-form">
             <div className="row mt-5 ">
               <div className="col-12 col-sm-6 py-2 wow fadeInLeft">
-                <input type="text" className="form-control" placeholder="Full name" />
+                <input type="text" className="form-control" namme="name" placeholder="Full name" />
               </div>
               <div className="col-12 col-sm-6 py-2 wow fadeInRight">
                 <input type="text" className="form-control" placeholder="Email address.." />
@@ -75,10 +84,12 @@ export default function Home(){
             <button type="submit" className="btn btn-primary mt-3 wow zoomIn">Submit Request</button>
           </form>
         </div>
-      </div> {/* .page-section */}
-        <div className="maps-container wow fadeInUp">
+      </div> 
+      {/* Booking Form */}
+      {/* .page-section */}
+        {/* <div className="maps-container wow fadeInUp">
           <a className="map-location__link" href="" target="blank">Find us in Google Maps</a>
-        </div>
+        </div> */}
       {/* .banner-home */}
       <footer className="page-footer">
         <div className="container">

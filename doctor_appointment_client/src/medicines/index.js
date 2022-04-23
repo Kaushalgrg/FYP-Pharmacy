@@ -1,11 +1,10 @@
-import { DoctorContext } from "./context";
+import { MedicineContext } from "./context";
 import { useContext, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { UserContext } from "../user/context";
 import { useHistory } from "react-router";
 import Detail from "./detailsView";
-import BookDoctor from "./BookModal";
-
+import BookMedicine from "./BookModal";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -15,14 +14,14 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-const DeleteDoctor = ({ id, open, handleClose }) => {
-  const { deleteDoctor, refreshData } = useContext(DoctorContext);
+const DeleteMedicine = ({ id, open, handleClose }) => {
+  const { deleteMedicine, refreshData } = useContext(MedicineContext);
   return (
     <Modal show={open} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Delete doctor</Modal.Title>
+        <Modal.Title>Delete Medicine</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Are you sure you wanna delete this doctor?</Modal.Body>
+      <Modal.Body>Are you sure you wanna delete this medicine?</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Cancel
@@ -30,7 +29,7 @@ const DeleteDoctor = ({ id, open, handleClose }) => {
         <Button
           variant="danger"
           onClick={async () => {
-            await deleteDoctor(id);
+            await deleteMedicine(id);
             refreshData();
             handleClose();
           }}
@@ -42,8 +41,8 @@ const DeleteDoctor = ({ id, open, handleClose }) => {
   );
 };
 
-const Doctors = () => {
-  const { doctors } = useContext(DoctorContext);
+const Medicines = () => {
+  const { medicines } = useContext(MedicineContext);
   const [show, setShow] = useState(false);
   const [viewDetails, setViewDetails] = useState(false);
   const { is_admin } = useContext(UserContext);
@@ -51,8 +50,7 @@ const Doctors = () => {
   const handleDetailsShow = () => setViewDetails(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [viewDoctor, setViewDoctor] = useState({});
-
+  const [viewMedicine, setViewMedicine] = useState({});
   const [viewDelete, setViewDelete] = useState(false);
   const handleDeleteClose = () => setViewDelete(false);
   const handleDeleteShow = () => setViewDelete(true);
@@ -60,47 +58,47 @@ const Doctors = () => {
   const history = useHistory();
   return (
     <div>
-      <h1>Patnered Pharmacy</h1>
+      <h1>List of Medicine</h1>
       <Grid sx={{ flexGrow: 0}} container spacing={2}>
       <Grid item xs={12}>
         <Grid container justifyContent="center" spacing={5}>
-      {doctors.map((doctor, i) => {
-        if (!doctor.is_archived) {
+      {medicines.map((medicine, i) => {
+        if (!medicine.is_archived) {
           return (
             <Grid key={i} item>
             <Box sx={{ flexGrow: 1 }}>
                 <Card sx={{ maxWidth: 400 }}>
                   <CardMedia
                     component="img"
-                    alt="Pharmacy"
+                    alt="Medicine"
                     height="200"
-                    image={doctor.img}
+                    image={medicine.img}
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" fontWeight="bolder">Name:
-                      {doctor.name}<br />
+                    <Typography gutterBottom variant="h5" component="div" fontWeight="bolder">Medicine Code:
+                      {medicine.medicine_code}<br />
                     </Typography>
                     {/* <Typography variant="h7" color="text.primary" fontWeight="bold">
-                      Details: {doctor.description}<br />
+                      Details: {medicine.description}<br />
                       </Typography>
                     <Typography variant="h7" color="text.primary" fontWeight="bold">Designation:
-                      {doctor.designation}<br />
+                      {medicine.designation}<br />
                     </Typography> */}
-                    <Typography variant="h7" color="text.primary" fontWeight="bold">Phone no:
-                      {doctor.phone}<br />
+                    <Typography variant="h7" color="text.primary" fontWeight="bold">Medicine's Name: 
+                      {medicine.medicine_name}<br />
                     </Typography>
-                    <Typography variant="h7" color="text.primary" fontWeight="bold">Email:
-                      {doctor.email}<br />
+                    <Typography variant="h7" color="text.primary" fontWeight="bold">Medicine's Use: 
+                      {medicine.use}<br />
                     </Typography>
-                    <Typography variant="h7" color="text.primary" fontWeight="bold">Address:
-                      {doctor.address}
-                    </Typography>
+                    {/* <Typography variant="h7" color="text.primary" fontWeight="bold">Medicine's Dosage: 
+                      {medicine.dosage}
+                    </Typography> */}
                   </CardContent>
                   {is_admin ? (
                     <CardActions>
                     <Button onClick={() => {
                       history.push(
-                        `${window.location.pathname}/${doctor._id}`
+                        `${window.location.pathname}/${medicine._id}`
                         );
                       }}
                       >
@@ -109,7 +107,7 @@ const Doctors = () => {
                     <Button
                       variant="danger"
                       onClick={() => {
-                        setViewDoctor(doctor);
+                        setViewMedicine(medicine);
                         handleDeleteShow();
                       }}
                       >
@@ -118,19 +116,19 @@ const Doctors = () => {
                   </CardActions>
                       ):(
                         <CardActions>
-                    <Button onClick={() => {
-                      setViewDoctor(doctor); handleShow();
+                    {/* <Button onClick={() => {
+                      setViewMedicine(medicine); handleShow();
                       }}
                       >
                       Order Medicine
-                    </Button>
+                    </Button> */}
                     <Button 
                       onClick={() => {
-                        setViewDoctor(doctor);
+                        setViewMedicine(medicine);
                         handleDetailsShow();
                       }}
                       >
-                      View Details
+                      Show Details
                     </Button>
                   </CardActions>
                       )}
@@ -146,9 +144,9 @@ const Doctors = () => {
 
       {/* .card*/}
 
-      {viewDoctor !== new Object() && show ? (
-        <BookDoctor
-          id={viewDoctor._id}
+      {viewMedicine != new Object() && show ? (
+        <BookMedicine
+          id={viewMedicine._id}
           show={show}
           handleClose={handleClose}
           handleShow={handleShow}
@@ -156,20 +154,20 @@ const Doctors = () => {
       ) : (
         ""
       )}
-      {viewDoctor != new Object() && viewDetails ? (
+      {viewMedicine != new Object() && viewDetails ? (
         <Detail
           open={viewDetails}
-          doctor={viewDoctor}
+          medicine={viewMedicine}
           handleClose={handleDetailsClose}
           handleOpen={handleDetailsShow}
         />
       ) : (
         ""
       )}
-      {viewDoctor != new Object() && viewDelete ? (
-        <DeleteDoctor
+      {viewMedicine != new Object() && viewDelete ? (
+        <DeleteMedicine
           open={viewDelete}
-          id={viewDoctor._id}
+          id={viewMedicine._id}
           handleClose={handleDeleteClose}
           handleOpen={handleDeleteShow}
         />
@@ -179,4 +177,4 @@ const Doctors = () => {
     </div>
   );
 };
-export default Doctors;
+export default Medicines;

@@ -4,6 +4,7 @@ const Appointment = require('./appointment/appointment.routes')
 const Customer = require('./customer/customer.routes')
 const Product = require('./products/products.routers')
 const Order = require('./order/order.routes')
+const Medicine = require('./medicine/medicine.routers')
 
 module.exports={
     Doctor,
@@ -11,5 +12,6 @@ module.exports={
     Appointment,
     Customer,
     Product,
-    Order
+    Order,
+    Medicine
 }
