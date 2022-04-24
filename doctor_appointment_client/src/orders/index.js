@@ -1,7 +1,25 @@
 import { useContext, useState } from "react";
 import { OrderContext } from "./context";
 import { Link } from "react-router-dom";
-import { Table, Button, Toast, ToastContainer } from "react-bootstrap";
+import { Table, Button, Toast, ToastContainer, Modal } from "react-bootstrap";
+import { useEffect } from "react";
+import { orderimages } from "../constants/api";
+
+// yo garya 
+const ViewImage=({order,open, onClose})=>{
+  if(open == true){return(
+      <Modal show={open} onHide={onClose} >
+      <img src={orderimages + `/${order.files[0]}`} alt="..." />
+      </Modal>
+  )}else{
+    return(
+      <div>
+        </div>
+    )
+  }
+}
+//
+
 const Orders = () => {
   const {
     orders,
@@ -9,17 +27,23 @@ const Orders = () => {
     deleteOrder,
     completeOrder,
     refreshData,
-    downloadFile,
   } = useContext(OrderContext);
 
-  const handleDownload = async (id) => {
-    await downloadFile(id);
-  }
   const [showToast, setToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastBg, setToastBg] = useState("success");
+  const [openOrder, setOrderImages] = useState(false);
+  const [currOrder, setCurrOrder] = useState({})
+  
+  const handleDownload = (item) => {
+    setCurrOrder(item);
+    setOrderImages(true);
+  }
 
-  if (orders.length > 0) {
+  useEffect(()=>{
+    refreshData();
+  },[])
+  if (orders) {
     return (
       <div>
         <Table striped bordered hover>
@@ -48,7 +72,7 @@ const Orders = () => {
                     <td>{orderlst.gender}</td>
                     <td>{orderlst.phone}</td>
                     <td>{orderlst.email}</td>
-                    <td><Button onClick={() => { handleDownload(orderlst._id) }}>Download Document </Button></td>
+                    <td><Button onClick={() => { handleDownload(orderlst) }}>View Document </Button></td>
                     <td>
                       <Button>
                         <Link to={`/products/${orderlst.product_id}`} style={{ color: 'black', textDecoration: "none", color: "inherit" }}>
@@ -118,6 +142,9 @@ const Orders = () => {
             <Toast.Body>{toastMessage}</Toast.Body>
           </Toast>
         </ToastContainer>
+        {/* // */}
+        <ViewImage order={currOrder} open={openOrder} onClose={()=>setOrderImages(!openOrder)}/>
+      {/* // */}
       </div>
     );
   } else {

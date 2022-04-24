@@ -7,19 +7,21 @@ const Order = {
   async add(data) {
     return await this.register(data);
   },
-  async list(start, limit, from) {
-    const $match = { is_archived: false };
-    if (from) $match.from = { $regex: new RegExp(`${from}`), $options: "gi" };
-    const query = [{ $match }];
+  async list() {
+    var res = await OrderModel.find().lean();
+    
+   
+    const promise = res.map(r=>{
+     r.files = fs.readdirSync('./modules/order/productorder/').filter(f=>f.startsWith(r._id));
+   })
 
-    return DataUtils.paging({
-      start,
-      limit,
-      sort: { created_at: -1 },
-      model: OrderModel,
-      query,
-    });
+   return Promise.all(promise).then(()=>{
+     return res;
+   }).catch(err=>{
+     return res;
+   })
   },
+
   async getByDoctorId(id, start, limit, from) {
     const $match = { is_archived: false, doctor_id: id };
     if (from) $match.from = { $regex: new RegExp(`${from}`), $options: "gi" };
@@ -103,7 +105,7 @@ module.exports = {
     const start = req.query.start || 0;
     const limit = req.query.limit || 20;
     const from = req.query.from || null;
-    return Order.list(start, limit, from);
+    return  Order.list(start, limit, from);
   },
   getByDoctorId: (req) => {
     const start = req.query.start || 0;

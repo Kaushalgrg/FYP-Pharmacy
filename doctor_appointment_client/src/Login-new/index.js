@@ -1,6 +1,6 @@
-import * as React from 'react';
+//import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+//import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -59,7 +59,7 @@ const Login = () => {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage: 'url(https://s3-ap-south-1.amazonaws.com/ricedigitals3bucket/AUPortalContent/2021/07/12114718/blog-banner.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -83,7 +83,7 @@ const Login = () => {
             <Typography component="h1" variant="h5">
               login
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" noValidate  sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required

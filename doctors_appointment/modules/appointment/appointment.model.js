@@ -49,6 +49,6 @@ const AppointmentSchema = mongoose.Schema(schema, {
   toJSON: { virtuals: true },
 });
 
-AppointmentSchema.index({ email: 1 }, { unique: true });
+//AppointmentSchema.index({ email: 1 }, { unique: true });
 
 module.exports = mongoose.model("appointment", AppointmentSchema);

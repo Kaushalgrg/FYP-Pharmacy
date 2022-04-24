@@ -1,7 +1,24 @@
 import { useContext, useState } from "react";
 import { AppointmentContext } from "./context";
 import { Link } from "react-router-dom";
-import { Table, Button, Toast, ToastContainer } from "react-bootstrap";
+import { Table, Button, Toast, ToastContainer, Modal } from "react-bootstrap";
+import { useEffect } from "react";
+import { prescriptionimages } from "../constants/api";
+
+const ViewDoc=({appointment, open, onClose})=>{
+  if(open == true){
+    return(
+      <Modal show={open} onHide={onClose}>
+        <img src={prescriptionimages + `/${appointment.files[0]}`} alt="..."/>
+      </Modal>
+    )}else{
+      return(
+        <div></div>
+      )
+  }
+}
+
+
 const Appointments = () => {
   const {
     appointments,
@@ -9,17 +26,24 @@ const Appointments = () => {
     deleteAppointment,
     completeAppointment,
     refreshData,
-    downloadFile,
+    //downloadFile,
   } = useContext(AppointmentContext);
 
-  const handleDownload=async(id)=>{
-    await downloadFile(id);
-  }
+  
   const [showToast, setToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastBg, setToastBg] = useState("success");
+  const [openAppointment, setAppointmentImages] = useState(false);
+  const [currAppointment, setCurrAppointment] = useState({})
 
-  if (appointments.length > 0) {
+  const handleDownload=(item)=>{
+    setCurrAppointment(item);
+    setAppointmentImages(true);
+  }
+  useEffect(()=>{
+    refreshData();
+  },[])
+  if (appointments) {
     return (
       <div>
         <Table striped bordered hover>
@@ -48,7 +72,7 @@ const Appointments = () => {
                     <td>{appnt.gender}</td>
                     <td>{appnt.phone}</td>
                     <td>{appnt.email}</td>
-                    <td><Button onClick={()=>{handleDownload(appnt._id)}}>Download Prescription </Button></td>
+                    <td><Button onClick={()=>{handleDownload(appnt)}}>View Prescription </Button></td>
                     <td>
                       <Button>
                       <Link to={`/doctors/${appnt.doctor_id}`} style={{color: 'black', textDecoration: "none", color: "inherit"}}>
@@ -118,10 +142,14 @@ const Appointments = () => {
             <Toast.Body>{toastMessage}</Toast.Body>
           </Toast>
         </ToastContainer>
+
+        <ViewDoc appointment={currAppointment} open={openAppointment} onClose={()=>setAppointmentImages(!openAppointment)}/>
       </div>
     );
   } else {
-    return <div></div>;
+    return <div>
+      No medicine orders.
+    </div>;
   }
 };
 export default Appointments;

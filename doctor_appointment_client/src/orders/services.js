@@ -10,7 +10,8 @@ export const getOrders = async (filter) => {
     const response = await axios.get(ORDER, {
       headers: { access_token: res.token },
     });
-    return response.data.data;
+    console.log(response.data)
+    return response.data;
   } catch (err) {
     throw err;
   }

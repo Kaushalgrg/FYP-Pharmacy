@@ -82,14 +82,20 @@ export default function Navs({ authenticated }) {
                <Nav.Link href="/products">Products</Nav.Link>
                <Nav.Link href ="/medicines">Medicines</Nav.Link> 
               {/* <Nav.Link href="/about">About-us</Nav.Link> */}
-              <Nav.Link href="/cart">
+
+              {/* Pachi halam la time bhayoo bhane */}
+
+
+              {/* <Nav.Link href="/cart"> */}
               {/* <Badge badgeContent={1} color="secondary">
                 <ShoppingCartIcon color="inherit"/>
               </Badge> */}
-              Cart
-            </Nav.Link>
+              {/* Cart */}
+            {/* </Nav.Link> */}
             
-              <Nav.Link href="/signup">Register</Nav.Link>
+              {/* <Nav.Link href="/signup">Register</Nav.Link> */}
+
+              {/* Yeta samma baki cha garna */}
               {authenticated ? (
                 <>
                   <Nav.Link href="/doctors/add">Add Pharmacy</Nav.Link>

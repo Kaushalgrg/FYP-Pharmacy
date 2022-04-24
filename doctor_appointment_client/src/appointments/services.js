@@ -10,7 +10,7 @@ export const getAppointments = async (filter) => {
     const response = await axios.get(APPOINTMENT, {
       headers: { access_token: res.token },
     });
-    return response.data.data;
+    return response.data;
   } catch (err) {
     throw err;
   }

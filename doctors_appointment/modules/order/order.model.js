@@ -46,6 +46,7 @@ const OrderSchema = mongoose.Schema(schema, {
   collection: "order",
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
   toObject: { virtuals: true },
+  
   toJSON: { virtuals: true },
 });
 

@@ -7,19 +7,30 @@ const Appointment = {
   async add(data) {
     return await this.register(data);
   },
-  async list(start, limit, from) {
-    const $match = { is_archived: false };
-    if (from) $match.from = { $regex: new RegExp(`${from}`), $options: "gi" };
-    const query = [{ $match }];
+  async list() {
+    var res = await AppointmentModel.find().lean();
 
-    return DataUtils.paging({
-      start,
-      limit,
-      sort: { created_at: -1 },
-      model: AppointmentModel,
-      query,
-    });
+    const promise = res.map(r=>{
+      r.files = fs.readdirSync('./modules/appointment/problems/').filter(f=>f.startsWith(r._id));
+    })
+    return Promise.all(promise).then(()=>{
+      return res;
+    }).catch(err=>{
+      return res;
+    })
   },
+
+    // const $match = { is_archived: false };
+    // if (from) $match.from = { $regex: new RegExp(`${from}`), $options: "gi" };
+    // const query = [{ $match }];
+
+    // return DataUtils.paging({
+    //   start,
+    //   limit,
+    //   sort: { created_at: -1 },
+    //   model: AppointmentModel,
+    //   query,
+    // });
   async getByDoctorId(id, start, limit, from) {
     const $match = { is_archived: false, doctor_id: id };
     if (from) $match.from = { $regex: new RegExp(`${from}`), $options: "gi" };
@@ -39,14 +50,14 @@ const Appointment = {
 
   async register(data) {
     const ext = data.problem_doc.hapi['filename'].split('.')[1];
-    const user = await AppointmentModel.findOne({ email: data.email });
-    const user1 = await AppointmentModel.findOne({ phone: data.phone });
-    if (user) {
-      throw { message: "Email already registered", code: 400 };
-    }
-    if (user1) {
-      throw { message: "Phone already registered", code: 400 };
-    }
+    // const user = await AppointmentModel.findOne({ email: data.email });
+    // const user1 = await AppointmentModel.findOne({ phone: data.phone });
+    // if (user) {
+    //   throw { message: "Email already registered", code: 400 };
+    // }
+    // if (user1) {
+    //   throw { message: "Phone already registered", code: 400 };
+    // }
     const res = await AppointmentModel.create(data);
     fs.writeFileSync(__dirname +  `/problems/${res._id}.${ext}`, Buffer(data.problem_doc._data));
     return 0;

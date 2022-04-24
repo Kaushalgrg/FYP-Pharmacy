@@ -1,3 +1,20 @@
+//import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+//import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import Login from '../Login';
+import { UserContext } from "../user/context";
+import { saveLoginInfo } from "../services/db";
 import React, { useContext, useState } from "react";
 import {
   Form,
@@ -7,90 +24,152 @@ import {
   Toast,
   ToastContainer,
 } from "react-bootstrap";
-import { UserContext } from "../user/context";
-import { saveLoginInfo } from "../services/db";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showToast, setToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
-  const [toastHeader, setToastHeader] = useState("");
-  const [toastBg, setToastBg] = useState("danger");
-  const { login } = useContext(UserContext);
+
+function Copyright(props) {
   return (
-    <Container fluid="sm">
-      <h1>Login</h1>
-      <Form>
-        <Row>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              value={email}
-              placeholder="Enter email"
-              onChange={(e) => {
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+const theme = createTheme();
+const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [showToast, setToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastHeader, setToastHeader] = useState("");
+    const [toastBg, setToastBg] = useState("danger");
+    const { login } = useContext(UserContext);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Grid container component="main" sx={{ height: '100vh' }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: 'url(https://s3-ap-south-1.amazonaws.com/ricedigitals3bucket/AUPortalContent/2021/07/12114718/blog-banner.jpg)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              login
+            </Typography>
+            <Box component="form" noValidate  sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={(e) => {e.preventDefault(); setEmail(e.target.value);}}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={(e) => {
+                  e.preventDefault();
+                  setPassword(e.target.value);
+                }}
+              />
+              {/* <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              /> */}
+              <Button
+              variant="primary"
+              onClick={(e) => {
                 e.preventDefault();
-                setEmail(e.target.value);
-              }}
-            />
-          </Form.Group>
-        </Row>
-        <Row>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              value={password}
-              placeholder="Password"
-              onChange={(e) => {
-                e.preventDefault();
-                setPassword(e.target.value);
-              }}
-            />
-          </Form.Group>
-        </Row>
-        <Button
-          variant="primary"
-          onClick={(e) => {
-            e.preventDefault();
-            login({ email, password }).then((res) => {
-              console.log(res);
-              if (res.error) {
-                setToastMessage(res.message);
-                setToastHeader("Login Failed");
-                setToastBg("danger");
-                setToast(true);
-              } else {
-                saveLoginInfo(res.data.data).then((db_res) => {
-                  if (db_res.success) {
-                    setToastMessage("Login Successfull");
-                    setToastHeader("Success");
-                    setToastBg("success");
-                    window.location.reload();
-                  } else {
+                login({ email, password }).then((res) => {
+                  console.log(res);
+                  if (res.error) {
                     setToastMessage(res.message);
                     setToastHeader("Login Failed");
                     setToastBg("danger");
+                    setToast(true);
+                  } else {
+                    saveLoginInfo(res.data.data).then((db_res) => {
+                      if (db_res.success) {
+                        setToastMessage("Login Successfull");
+                        setToastHeader("Success");
+                        setToastBg("success");
+                        window.location.reload();
+                      } else {
+                        setToastMessage(res.message);
+                        setToastHeader("Login Failed");
+                        setToastBg("danger");
+                      }
+                    });
+                    setToast(true);
                   }
                 });
-                setToast(true);
-              }
-            });
-          }}
-        >
-          Submit
-        </Button>{" "}
-        <Button
-          variant="primary"
-          onClick={(e) => {
-            setEmail("");
-            setPassword("");
-          }}
-        >
-          Reset
-        </Button>
-      </Form>
+              }}
+              >
+                Log-In
+              </Button>
+              <>             </>
+              <Button
+                type="submit"
+                fullWidth
+                variant="secondary"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Clear
+              </Button>
+              <Grid container>
+                {/* <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid> */}
+                <Grid item>
+                  <Link href="#" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+              <Copyright sx={{ mt: 5 }} />
+            </Box>
+          </Box>
+        </Grid>
+        
       <ToastContainer className="p-3" position="top-end">
         <Toast show={showToast} onClose={() => setToast(false)} bg={toastBg}>
           <Toast.Header>
@@ -99,7 +178,8 @@ const Login = () => {
           <Toast.Body>{toastMessage}</Toast.Body>
         </Toast>
       </ToastContainer>
-    </Container>
+      </Grid>
+    </ThemeProvider>
   );
 };
 export default Login;

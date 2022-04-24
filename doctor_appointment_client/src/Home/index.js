@@ -87,9 +87,9 @@ export default function Home(){
       </div> 
       {/* Booking Form */}
       {/* .page-section */}
-        {/* <div className="maps-container wow fadeInUp">
+        <div className="maps-container wow fadeInUp">
           <a className="map-location__link" href="" target="blank">Find us in Google Maps</a>
-        </div> */}
+        </div>
       {/* .banner-home */}
       <footer className="page-footer">
         <div className="container">
