@@ -63,7 +63,7 @@ const Customer= {
     async register(data) {
         const {name, email, password } =  data;
 
-        if(!(email && password)){
+        if(!(name && email && password)){
             return "All input is required";
         }
         const oldUser = await CustomerModel.findOne({email});

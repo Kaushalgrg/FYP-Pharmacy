@@ -30,6 +30,9 @@ export const CustomerContextProvider = ({ children }) => {
     const login = useCallback(async(data) => {
         return await Service.login(data);
     }, [])
+    const register = useCallback(async(data) => {
+        return await Service.register(data);
+    }, [])
 
     const changePassword = useCallback(async(data) => {
         return await Service.changePassword(data);
@@ -51,6 +54,7 @@ export const CustomerContextProvider = ({ children }) => {
                 changeAdimState,
                 is_user: state.is_user,
                 validate,
+                register,
                 logout,
                 login,
                 changePassword

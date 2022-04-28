@@ -12,7 +12,16 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Axios from 'axios'
+import {CustomerContext} from '../customer/context';
+import { saveRegistrationInfo } from "../services/Cdb";
+import { useState } from 'react';
+import { useContext } from 'react';
+import {
+  Form,
+  Row,
+  Toast,
+  ToastContainer,
+} from "react-bootstrap";
 
 function Copyright(props) {
   return (
@@ -29,16 +38,31 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const SignUp = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('Name'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+const SignUp = ({handleClose, setMessage, setSevernity}) => {
+  
+
+  // const handleSubmit = async() => {
+  //   try{
+  //     await register({name, email, password});
+  //     setMessage("User added successfully");
+  //           setSevernity("success");
+  //           handleClose();
+  //   } catch (err){
+  //     setMessage(err.response.data.message);
+  //           setSevernity("danger");
+  //           handleClose();
+  //   }
+    
+  // };
+  const [name, setName] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [password, setPassword] = useState([]);
+  const [showToast, setToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastHeader, setToastHeader] = useState("");
+    const [toastBg, setToastBg] = useState("");
+    
+  const {register} = useContext(CustomerContext);
 
   return (
     <ThemeProvider theme={theme}>
@@ -58,7 +82,7 @@ const SignUp = () => {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -69,6 +93,7 @@ const SignUp = () => {
                   id="Name"
                   label="Full Name"
                   autoFocus
+                  value={name} type={"name"} onChange={(e) => {e.preventDefault(); setName(e.target.value) }}
                 />
               </Grid>
               {/* <Grid item xs={12} sm={6}>
@@ -89,6 +114,7 @@ const SignUp = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email} type={"email"} onChange={(e) => {e.preventDefault(); setEmail(e.target.value) }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -100,20 +126,47 @@ const SignUp = () => {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password} onChange={(e) => {e.preventDefault(); setPassword(e.target.value) }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="Sign-in as admin?"
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={(e) => {
+                e.preventDefault();
+                register({ name, email, password }).then((res) => {
+                  console.log(res);
+                  if (!res.error) {
+                    setToastMessage("User already registerd");
+                    setToastHeader(" Failed to register");
+                    setToastBg("danger");
+                    setToast(true);
+                  } else {
+                    saveRegistrationInfo(res.data).then((db_res) => {
+                      if (db_res.success) {
+                        setToastMessage("Register Successfull");
+                        setToastHeader("Success");
+                        setToastBg("success");
+                        window.location.reload();
+                      } else {
+                        setToastMessage("User registered");
+                        setToastHeader("Sucessful");
+                        setToastBg("success");
+                      }
+                    });
+                    setToast(true);
+                  }
+                });
+              }}
             >
               Sign Up
             </Button>
@@ -127,6 +180,14 @@ const SignUp = () => {
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
+        <ToastContainer className="p-3" position="top-end">
+        <Toast show={showToast} onClose={() => setToast(false)} bg={toastBg}>
+          <Toast.Header>
+            <strong className="me-auto">{toastHeader}</strong>
+          </Toast.Header>
+          <Toast.Body>{toastMessage}</Toast.Body>
+        </Toast>
+      </ToastContainer>
       </Container>
     </ThemeProvider>
   );

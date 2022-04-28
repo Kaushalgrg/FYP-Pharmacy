@@ -8,15 +8,15 @@ module.exports = {
   },
   register: {
     payload: Joi.object({
-        name: Joi.string().optional().description('customer name'),
-      email: Joi.string().optional().description('customer email'),
-      password: Joi.string().optional().description('customer password'),
+        name: Joi.string().description('customer name'),
+      email: Joi.string().description('customer email'),
+      password: Joi.string().description('customer password'),
     }),
   },
   login: {
     payload: Joi.object({
-      email: Joi.string().optional().description('customer email'),
-      password: Joi.string().optional().description('customer password'),
+      email: Joi.string().description('customer email'),
+      password: Joi.string().description('customer password'),
     }),
   },
   changePassword: {
